@@ -21,11 +21,11 @@ This repository contains the code for a peer-to-peer (P2P) file transfer system 
 
 ## How to Use
 
-Visit : [WAN_P2P](https://p2p.wan/vercel.app){:target="_blank"} <br>
+Visit : [WAN_P2P](https://p2p.wan/vercel.app)<br>
       OR <br><br>  Use this repo codes as : <br>
 1. Open the `index.html` file in systems or tabs that will participate in the file transfer.
 2. On the first system or tab, click "Create local offer" to generate a local offer text. Copy this text.
-3. Share the copied text with the second system or tab, and paste it into the text box under the "Remote" section. <br> Note : For sharing of local offer b/w d/f system you can use [Q-Text](https://qtext.io){:target="_blank"}
+3. Share the copied text with the second system or tab, and paste it into the text box under the "Remote" section. <br> Note : For sharing of local offer b/w d/f system you can use [Q-Text](https://qtext.io)
 4. Click "Connect" on the second system or tab. A text will generate in the box under the "Local" section. Copy this text.
 5. Share the copied text from the second system or tab with the first system or tab and ask to paste it into the text box under the "Remote" section. Then, press "Connect".
 6. Once connected, the status will show as "Connected to peer". The sender can then choose a file and send it to the receiver.
@@ -51,4 +51,4 @@ The system ensures secure and efficient file transfer by directly connecting pee
 ## Team
 
 - [Nishant Kumar] @me
-- [Viswanadha Sai Nissankararao](https://github.com/createunique){:target="_blank"}
+- [Viswanadha Sai Nissankararao](https://github.com/createunique)
