@@ -1,66 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="https://static-00.iconduck.com/assets.00/webrtc-icon-512x496-cef4xjw5.png"
-      type="image/x-icon"
-    />
-    <link
-      rel="icon"
-      href="https://static-00.iconduck.com/assets.00/webrtc-icon-512x496-cef4xjw5.png"
-      type="image/x-icon"
-    />
-    <title>Playground | WebRTC</title>
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://static-00.iconduck.com/assets.00/webrtc-icon-512x496-cef4xjw5.png" type="image/x-icon">
+    <link rel="icon" href="https://static-00.iconduck.com/assets.00/webrtc-icon-512x496-cef4xjw5.png" type="image/x-icon">
+    <title> WAN P2P </title>
     <style>
-      body {
-        padding: 20px;
-      }
+        /* Google Fonts */
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+        /* Variables */
+        :root {
+          --white-color: hsl(0, 0%, 100%);
+          --black-color: hsl(0, 0%, 0%);
+          --body-font: "Poppins", sans-serif;
+          --h1-font-size: 2rem;
+          --normal-font-size: 1rem;
+          --small-font-size: .813rem;
+        }
+
+        /* Base */
+        * {
+          box-sizing: border-box;
+          padding: 0;
+          margin: 0;
+        }
+
+        body, input, button {
+          font-family: var(--body-font);
+          font-size: var(--normal-font-size);
+        }
+
+        a {
+          text-decoration: none;
+        }
+
+        img {
+          display: block;
+          max-width: 100%;
+          height: auto;
+        }
+
+        body {
+          background-image: url("./Forest.png");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          color: rgb(255, 255, 255);
+          padding-top: 10px;
+  
+        }
+
+
+        /* Overlay for adjusting background brightness */
+        body::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.3); /* Adjust transparency and color as needed */
+          z-index: -1; /* Ensure it's behind the content */
+          pointer-events: none; /* Allow interactions with underlying elements */
+        }
+
+        /* Adjust brightness of the background image */
+        body::before {
+          filter: brightness(70%); /* Adjust the percentage value to change brightness */
+        }
+
+
+        .login-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          padding-top: 10vh; /* Adjust as needed */
+        }
+
+        .login, .register {
+          position: relative;
+          height: 100vh;
+          display: grid;
+          align-items: center;
+        }
+
+        .login__form, .register__form {
+          position: relative;
+          margin-inline: 1.5rem;
+          background-color: hsla(0, 0%, 100%, .01);
+          border: 2px solid hsla(0, 0%, 100%, .7);
+          padding: 2.5rem 1rem;
+          color: var(--white-color);
+          border-radius: 1rem;
+          backdrop-filter: blur(16px);
+          justify-content: center;
+          width: 420px; /* Adjust as needed */
+          padding-inline: 2.5rem; /* Adjust as needed */
+        }
+
+        .login__title, .register__title {
+          text-align: center;
+          font-size: var(--h1-font-size);
+          margin-bottom: 1.25rem;
+          margin-bottom: 2rem; /* Adjust as needed */
+        }
+
+        .login__inputs, .register__inputs {
+          display: grid;
+          row-gap: 1.25rem;
+          margin-bottom: 1rem;
+        }
+
+        .login__box, .register__box {
+          display: grid;
+          grid-template-columns: 1fr max-content;
+          column-gap: .75rem;
+          align-items: center;
+          border: 2px solid hsla(0, 0%, 100%, .7);
+          padding-inline: 1.25rem;
+          border-radius: 4rem;
+        }
+
+        .login__input, .register__input {
+          border: none;
+          outline: none;
+          width: 100%;
+          background: none;
+          color: var(--white-color);
+          padding-block: 1rem;
+        }
+
+        .login__input::placeholder, .register__input::placeholder {
+          color: var(--white-color);
+        }
+
+        .login__box i, .register__box i {
+          font-size: 1.25rem;
+        }
+
+        .login__button, .register__button {
+          border: none;
+          outline: none;
+          width: 100%;
+          padding: 1rem;
+          margin-bottom: 1rem;
+          background-color: var(--white-color);
+          border-radius: 4rem;
+          color: var(--black-color);
+          font-weight: 500;
+          cursor: pointer;
+        }
+
+        .login__register, .register__register {
+          font-size: var(--small-font-size);
+          text-align: center;
+        }
+
+        .login__register a, .register__register a {
+          color: var(--white-color);
+          font-weight: 500;
+        }
+
+        .login__register a:hover, .register__register a:hover {
+          text-decoration: underline;
+        }
+
+        .login__check, .register__check {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+          font-size: var(--small-font-size);
+        }
+
+        .login__check-box, .register__check-box {
+          display: flex;
+          column-gap: .5rem;
+        }
+
+        .login__check-input, .register__check-input {
+          width: 1rem;
+          height: 1rem;
+          accent-color: var(--white-color);
+        }
+
+        .login__forgot, .register__forgot {
+          color: var(--white-color); 
+        }
+
+        .login__forgot:hover, .register__forgot:hover {
+          text-decoration: underline;
+        }
+
+        /* WebRTC */
+        .local-box,
+        .remote-box {
+            width: 50%;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.3); /* Adjust transparency here */
+            backdrop-filter: blur(10px); /* Add backdrop filter for better transparency */
+            border: 1px solid rgba(0, 0, 0, 0.1); /* Thin border */
+        }
+
+        .local-box h2,
+        .remote-box h2 {
+            margin-bottom: 10px;
+        }
+
+        .local-box textarea,
+        .remote-box textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.5); /* Adjust transparency here */
+            margin-bottom: 10px;
+        }
+
+        .local-box button,
+        .remote-box button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .local-box button:hover,
+        .remote-box button:hover {
+            background-color: #45a049;
+        }
     </style>
-
-    <h1>P2P File Tansfer (WebRTC)</h1>
-    <p id="connectionStatus">Not connected to peer.</p>
-    <ul style="font-size: 14px; line-height: 1.9; margin-top: 20px">
-      <li>Step 1: Open this page in 2 tabs</li>
-      <li>
-        Step 2: In the first tab, click on create offer and copy the text
-        generated in the text box under Local
-      </li>
-      <li>
-        Step 3: In the second tab, paste the text generated in the text box
-        under Remote
-      </li>
-      <li>
-        Step 4: Click on connect under Remote in the 2nd tab, now copy the text
-        generated in the Local text area.
-      </li>
-      <li>
-        Step 5: Paste this in the Remote text box in 1st tab and click on
-        connect.
-      </li>
-      <li>
-        Connected to peer should populate, and now share files. (Max file size:
-        50mb)
-      </li>
-    </ul>
-
+  </head>
+<body>
+    <div>
+        <h1 style="text-align: center; color: rgb(255, 255, 255);">P2P File Tansfer (WebRTC)</h1>
+        <p style="text-align: right; "id="connectionStatus"> _ _ Not connected to peer _ _ </p>
+        <ul style="font-size: 14px; line-height: 1.9; margin-top: 15px; padding-left: 20px;">
+          <li> Step 1 : Open this page in systems which will participate in file transfer { You can use 2 tabs also to explore it } </li>
+            <li> Step 2 : On the first system tab "Create local offer" and copy the text generated under local box. </li>
+            <li> Step 3 : Share that text with system 2 and ask to paste that in text box under remote section. </li>
+            <li> Step 4 : Click on "connect" on system 2 and text will generate in box under local of system 2, copy that text. </li>
+            <li> Step 5 : Share that copied text in system 2 with system 1 and ask to paste in text box under remote and press connect. </li>
+            <li> Step 6 : You will see the status as "Connected to peer" on top right side. </li>
+            <li> Now, sender can choose file at bottom left and will be sent to receiver </li>
+            <li> Basically you need to create local offer in sys-1 and paste in sys-2 and connect and then copy local offer of sys-2 and paste in sys-1 and connect </li>
+            <br>
+          </ul>
+    </div>
     <div style="display: flex; align-items: center; width: 100%">
-      <div style="width: 50%; background-color: beige; padding: 20px">
-        <h2>Local</h2>
-        <textarea id="localConfigText" cols="50" rows="15"></textarea>
-        <button id="connectLocalConfig">Create local offer</button>
-      </div>
+        <div class="local-box">
+            <h2>Local</h2>
+            <textarea id="localConfigText" cols="50" rows="15"></textarea>
+            <button id="connectLocalConfig">Create local offer</button>
+        </div>
 
-      <div style="width: 50%; padding: 20px; background: beige">
-        <h2>Remote</h2>
-        <textarea id="remoteConfigText" cols="50" rows="15"></textarea>
-        <button id="connectRemoteConfig">Connect</button>
-      </div>
+        <div class="remote-box">
+            <h2>Remote</h2>
+            <textarea id="remoteConfigText" cols="50" rows="15"></textarea>
+            <button id="connectRemoteConfig">Connect</button>
+        </div>
     </div>
 
     <br />
@@ -68,11 +275,11 @@
     <br />
 
     <div>
-      <input type="file" id="file-upload" />
-      <button hidden id="sendFile">Send file</button><br />
-      <progress id="progress" value="0"></progress>&nbsp;&nbsp;<label
-        id="progressLabel"
-      ></label>
+        <input type="file" id="file-upload" />
+        <button hidden id="sendFile">Send file</button><br />
+        <progress id="progress" value="0"></progress>&nbsp;&nbsp;<label
+            id="progressLabel"
+        ></label>
     </div>
 
     <br />
@@ -84,165 +291,165 @@
     <button hidden id="createBlob">Create blob</button>
 
     <script>
-      var remoteConnectBtn = document.getElementById("connectRemoteConfig");
-      var localConnectBtn = document.getElementById("connectLocalConfig");
-      var remoteConfigText = document.getElementById("remoteConfigText");
-      var fileUpload = document.getElementById("file-upload");
-      var sendFileBtn = document.getElementById("sendFile");
-      var downloadAnchor = document.getElementById("downloadanchor");
-      var createBlobBtn = document.getElementById("createBlob");
-      var progressbar = document.getElementById("progress");
-      var progressLabel = document.getElementById("progressLabel");
+        var remoteConnectBtn = document.getElementById("connectRemoteConfig");
+        var localConnectBtn = document.getElementById("connectLocalConfig");
+        var remoteConfigText = document.getElementById("remoteConfigText");
+        var fileUpload = document.getElementById("file-upload");
+        var sendFileBtn = document.getElementById("sendFile");
+        var downloadAnchor = document.getElementById("downloadanchor");
+        var createBlobBtn = document.getElementById("createBlob");
+        var progressbar = document.getElementById("progress");
+        var progressLabel = document.getElementById("progressLabel");
 
-      let localPeer = new RTCPeerConnection({
-        iceServers: [
-          { urls: "stun:freestun.net:3479" },
-          {
-            urls: "turn:freestun.net:3479",
-            username: "free",
-            credential: "free",
-          },
-        ],
-      });
-
-      let dataChannel;
-      let receiveBuffer = [];
-      let receivedSize = 0;
-
-      let receivedFile = {};
-
-      localConnectBtn.addEventListener("click", async function () {
-        dataChannel = localPeer.createDataChannel("dataChannel");
-        dataChannel.binaryType = "arraybuffer";
-        dataChannel.onmessage = (msg) => onReceiveMessageCallback(msg);
-        dataChannel.bufferedAmountLowThreshold = 0;
-        dataChannel.onopen = () =>
-          (document.getElementById("connectionStatus").innerHTML =
-            "Connected to peer.");
-
-        localPeer.onicecandidate = (o) =>
-          (document.querySelector("#localConfigText").value = JSON.stringify(
-            localPeer.localDescription
-          ));
-
-        const localOffer = await localPeer.createOffer();
-        localPeer.setLocalDescription(new RTCSessionDescription(localOffer));
-      });
-
-      remoteConnectBtn.addEventListener("click", async function () {
-        localPeer.setRemoteDescription(JSON.parse(remoteConfigText.value));
-        localPeer.localDescription == null
-          ? localPeer
-              .createAnswer()
-              .then((answer) => localPeer.setLocalDescription(answer))
-          : null;
-        localPeer.onicecandidate = (o) =>
-          (document.querySelector("#localConfigText").value = JSON.stringify(
-            localPeer.localDescription
-          ));
-      });
-
-      sendFileBtn.addEventListener("click", function () {});
-
-      fileUpload.addEventListener("change", function () {
-        const file = fileUpload.files[0];
-        progressbar.max = file.size;
-        progressbar.value = 0;
-        progressLabel.innerHTML = 0;
-
-        dataChannel.send(
-          JSON.stringify({
-            name: file.name,
-            size: file.size,
-            type: file.type,
-          })
-        );
-
-        sendData();
-      });
-
-      localPeer.ondatachannel = (e) => {
-        dataChannel = e.channel;
-        dataChannel.binaryType = "arraybuffer";
-        dataChannel.bufferedAmountLowThreshold = 0;
-        dataChannel.onmessage = (msg) => onReceiveMessageCallback(msg);
-        dataChannel.onopen = () =>
-          (document.getElementById("connectionStatus").innerHTML =
-            "Connected to peer.");
-      };
-
-      function sendData() {
-        let file = fileUpload.files[0];
-        let offset = 0;
-        let maxChunkSize = 16384;
-        progressbar.value = 0;
-
-        console.log(dataChannel.bufferedAmountLowThreshold);
-
-        file.arrayBuffer().then((buffer) => {
-          const send = () => {
-            while (buffer.byteLength) {
-              if (
-                dataChannel.bufferedAmount >
-                dataChannel.bufferedAmountLowThreshold
-              ) {
-                dataChannel.onbufferedamountlow = () => {
-                  dataChannel.onbufferedamountlow = null;
-                  send();
-                };
-                return;
-              }
-              const chunk = buffer.slice(0, maxChunkSize);
-              buffer = buffer.slice(maxChunkSize, buffer.byteLength);
-              dataChannel.send(chunk);
-              offset += maxChunkSize;
-              console.log("Sent " + offset + " bytes.");
-              progressbar.value = offset >= file.size ? file.size : offset;
-              progressLabel.innerHTML =
-                offset >= file.size
-                  ? "File sent"
-                  : ((offset / file.size) * 100).toFixed(1) + "%";
-            }
-          };
-
-          send();
+        let localPeer = new RTCPeerConnection({
+            iceServers: [
+                { urls: "stun:freestun.net:3479" },
+                {
+                    urls: "turn:freestun.net:3479",
+                    username: "free",
+                    credential: "free",
+                },
+            ],
         });
 
-        //console.log(`File is ${[file.name, file.size, file.type, file.lastModified].join(' ')}`);
-        //fileReader = new FileReader();
-      }
+        let dataChannel;
+        let receiveBuffer = [];
+        let receivedSize = 0;
 
-      function onReceiveMessageCallback(event) {
-        //console.log(receivedFile)
+        let receivedFile = {};
 
-        if (receivedFile["name"] == undefined) {
-          const file = JSON.parse(event.data);
-          console.log(file);
-          receivedFile = file;
-          progressbar.max = file.size;
-          progressbar.value = 0;
-          return;
+        localConnectBtn.addEventListener("click", async function () {
+            dataChannel = localPeer.createDataChannel("dataChannel");
+            dataChannel.binaryType = "arraybuffer";
+            dataChannel.onmessage = (msg) => onReceiveMessageCallback(msg);
+            dataChannel.bufferedAmountLowThreshold = 0;
+            dataChannel.onopen = () =>
+                (document.getElementById("connectionStatus").innerHTML =
+                    "__ Connected to peer __");
+
+            localPeer.onicecandidate = (o) =>
+                (document.querySelector("#localConfigText").value = JSON.stringify(
+                    localPeer.localDescription
+                ));
+
+            const localOffer = await localPeer.createOffer();
+            localPeer.setLocalDescription(new RTCSessionDescription(localOffer));
+        });
+
+        remoteConnectBtn.addEventListener("click", async function () {
+            localPeer.setRemoteDescription(JSON.parse(remoteConfigText.value));
+            localPeer.localDescription == null
+                ? localPeer
+                    .createAnswer()
+                    .then((answer) => localPeer.setLocalDescription(answer))
+                : null;
+            localPeer.onicecandidate = (o) =>
+                (document.querySelector("#localConfigText").value = JSON.stringify(
+                    localPeer.localDescription
+                ));
+        });
+
+        sendFileBtn.addEventListener("click", function () {});
+
+        fileUpload.addEventListener("change", function () {
+            const file = fileUpload.files[0];
+            progressbar.max = file.size;
+            progressbar.value = 0;
+            progressLabel.innerHTML = 0;
+
+            dataChannel.send(
+                JSON.stringify({
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                })
+            );
+
+            sendData();
+        });
+
+        localPeer.ondatachannel = (e) => {
+            dataChannel = e.channel;
+            dataChannel.binaryType = "arraybuffer";
+            dataChannel.bufferedAmountLowThreshold = 0;
+            dataChannel.onmessage = (msg) => onReceiveMessageCallback(msg);
+            dataChannel.onopen = () =>
+                (document.getElementById("connectionStatus").innerHTML =
+                    "__ Connected to peer __");
+        };
+
+        function sendData() {
+            let file = fileUpload.files[0];
+            let offset = 0;
+            let maxChunkSize = 16384;
+            progressbar.value = 0;
+
+            console.log(dataChannel.bufferedAmountLowThreshold);
+
+            file.arrayBuffer().then((buffer) => {
+                const send = () => {
+                    while (buffer.byteLength) {
+                        if (
+                            dataChannel.bufferedAmount >
+                            dataChannel.bufferedAmountLowThreshold
+                        ) {
+                            dataChannel.onbufferedamountlow = () => {
+                                dataChannel.onbufferedamountlow = null;
+                                send();
+                            };
+                            return;
+                        }
+                        const chunk = buffer.slice(0, maxChunkSize);
+                        buffer = buffer.slice(maxChunkSize, buffer.byteLength);
+                        dataChannel.send(chunk);
+                        offset += maxChunkSize;
+                        console.log("Sent " + offset + " bytes.");
+                        progressbar.value = offset >= file.size ? file.size : offset;
+                        progressLabel.innerHTML =
+                            offset >= file.size
+                                ? "File sent"
+                                : ((offset / file.size) * 100).toFixed(1) + "%";
+                    }
+                };
+
+                send();
+            });
+
+            //console.log(`File is ${[file.name, file.size, file.type, file.lastModified].join(' ')}`);
+            //fileReader = new FileReader();
         }
 
-        receiveBuffer.push(event.data);
-        receivedSize += event.data.byteLength;
-        progressbar.value = receivedSize;
-        progressLabel.innerHTML =
-          "Receive: " +
-          ((receivedSize / receivedFile.size) * 100).toFixed(1) +
-          "%";
+        function onReceiveMessageCallback(event) {
+            //console.log(receivedFile)
 
-        if (receivedSize == receivedFile["size"]) {
-          const blob = new Blob(receiveBuffer, { type: receivedFile["type"] });
-          downloadAnchor.href = URL.createObjectURL(blob);
-          downloadAnchor.download = receivedFile["name"];
-          downloadAnchor.innerHTML = receivedFile["name"];
-          //downloadAnchor.click();
-          receiveBuffer = [];
-          receivedSize = 0;
-          receivedFile = {};
+            if (receivedFile["name"] == undefined) {
+                const file = JSON.parse(event.data);
+                console.log(file);
+                receivedFile = file;
+                progressbar.max = file.size;
+                progressbar.value = 0;
+                return;
+            }
+
+            receiveBuffer.push(event.data);
+            receivedSize += event.data.byteLength;
+            progressbar.value = receivedSize;
+            progressLabel.innerHTML =
+                "Receive: " +
+                ((receivedSize / receivedFile.size) * 100).toFixed(1) +
+                "%";
+
+            if (receivedSize == receivedFile["size"]) {
+                const blob = new Blob(receiveBuffer, { type: receivedFile["type"] });
+                downloadAnchor.href = URL.createObjectURL(blob);
+                downloadAnchor.download = receivedFile["name"];
+                downloadAnchor.innerHTML = receivedFile["name"];
+                //downloadAnchor.click();
+                receiveBuffer = [];
+                receivedSize = 0;
+                receivedFile = {};
+            }
         }
-      }
     </script>
-  </body>
+</body>
 </html>
