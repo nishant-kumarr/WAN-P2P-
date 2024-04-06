@@ -21,7 +21,7 @@ This repository contains the code for a peer-to-peer (P2P) file transfer system 
 
 ## How to Use
 
-Visit : [WAN_P2P](https://p2p.wan/vercel.app)<br>
+Visit : [WAN_P2P](https://wan-p2p.vercel.app)<br>
       OR <br><br>  Use this repo codes as : <br>
 1. Open the `index.html` file in systems or tabs that will participate in the file transfer.
 2. On the first system or tab, click "Create local offer" to generate a local offer text. Copy this text.
