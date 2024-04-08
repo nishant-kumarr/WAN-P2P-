@@ -1,11 +1,11 @@
 # P2P File Transfer System using WebRTC
 
 $${\color{red} WORK \space IN \space PROGRESS \space...}$$
-Ongoing efforts to boost transfer speed over WAN and support for even bigger file sizes ...
+Ongoing efforts to boost transfer speed for bigger file sizes ...
 
 Note : It works for both LAN & WAN.      
 
-Speed on LAN >>> Speed on WAN.
+Speed on LAN > Speed on WAN.
 
 ## Overview
 
